@@ -5,7 +5,7 @@ export const Home = () => {
     return (
         <>
             <Search />
-            <div className="row">
+            <div className="row mt-4">
                 <div className="col-sm-4 mb-4">
                     <Card />
                 </div>
