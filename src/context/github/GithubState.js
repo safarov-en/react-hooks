@@ -2,6 +2,10 @@ import { useReducer } from "react";
 import { GithubContext } from "./githubContext";
 import { githubReducer } from "./githubReducer";
 import { GET_USER, SEARCH_USERS, CLEAR_USERS, SET_LOADING, GET_REPOS } from "../types";
+import axios from "axios";
+
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 export const GithubState = ({children}) => {
     const initialState = {
@@ -13,9 +17,12 @@ export const GithubState = ({children}) => {
     const [state, dispatch] = useReducer(githubReducer, initialState);
     const search = async value => {
         setLoading();
+        const response = await axios.get(
+            `https://api.github.com/search/users?q=${value}&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`
+        )
         dispatch({
             type: SEARCH_USERS,
-            payload: []
+            payload: response.data.items
         })
     }
     const getUser = async name => {
