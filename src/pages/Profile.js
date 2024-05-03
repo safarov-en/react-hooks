@@ -1,6 +1,7 @@
 import { useContext, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { GithubContext } from "../context/github/githubContext";
+import { Repos } from "../components/Repos";
 
 export const Profile = () => {
     const {getUser, getRepos, loading, user, repos} = useContext(GithubContext);
@@ -12,7 +13,7 @@ export const Profile = () => {
     if(loading) {
         return <p className="text-center">Загрузка...</p>
     }
-    console.log(user)
+    console.log(repos)
     const {
         name, company, avatar_url,
         location, bio, blog,
@@ -57,6 +58,7 @@ export const Profile = () => {
                     </div>
                 </div>
             </div>
+            <Repos repos={repos} />
         </>
     )
 }
